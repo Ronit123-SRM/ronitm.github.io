@@ -5,17 +5,15 @@
   <title>Sweet Boy’s Christmas Adventure</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- GSAP (animation library) -->
+  <!-- GSAP Animation Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
   <style>
     body, html {
       margin: 0;
       padding: 0;
-      overflow: hidden;
-      width: 100%;
-      height: 100%;
       background: #ffeeee;
+      overflow: hidden;
       font-family: Arial, sans-serif;
     }
 
@@ -23,36 +21,57 @@
       position: relative;
       width: 100vw;
       height: 100vh;
+      overflow: hidden;
     }
 
-    .character, .photo, #endingMessage {
+    .text-box {
       position: absolute;
+      width: 80%;
+      left: 10%;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 8px;
+      font-size: 1.3rem;
+      color: #333;
       opacity: 0;
     }
 
-    /* Sweet Boy stick figure */
     #sweetBoy {
+      position: absolute;
       width: 150px;
       height: 250px;
       top: 60%;
       left: -20%;
+      opacity: 0;
     }
 
     .photo {
-      width: 300px;
-      border-radius: 10px;
-      top: 20%;
+      position: absolute;
+      max-width: 280px;
       left: 50%;
       transform: translateX(-50%);
+      top: 25%;
+      opacity: 0;
+      border-radius: 10px;
     }
 
-    #endingMessage {
-      top: 45%;
+    #endingGif {
+      position: absolute;
+      max-width: 300px;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 25%;
+      opacity: 0;
+    }
+
+    #finalMessage {
+      position: absolute;
       width: 100%;
       text-align: center;
+      top: 60%;
       font-size: 2rem;
-      font-weight: bold;
       color: #9b2335;
+      opacity: 0;
     }
   </style>
 </head>
@@ -62,88 +81,99 @@
   <audio id="bgMusic" src="music.mp3" loop></audio>
 
   <div id="scene">
-
-    <!-- Sweet Boy stick figure (SVG) -->
-    <div id="sweetBoy" class="character">
+    <!-- Sweet Boy stick figure -->
+    <div id="sweetBoy">
       <svg width="150" height="250">
-        <circle cx="75" cy="40" r="30" stroke="#333" stroke-width="5" fill="none" />
-        <line x1="75" y1="70" x2="75" y2="150" stroke="#333" stroke-width="5"/>
-        <line x1="75" y1="90" x2="30" y2="120" stroke="#333" stroke-width="5"/>
-        <line x1="75" y1="90" x2="120" y2="120" stroke="#333" stroke-width="5"/>
-        <line x1="75" y1="150" x2="45" y2="210" stroke="#333" stroke-width="5"/>
-        <line x1="75" y1="150" x2="105" y2="210" stroke="#333" stroke-width="5"/>
+        <circle cx="75" cy="40" r="30" stroke="#333" stroke-width="5" fill="none"></circle>
+        <line x1="75" y1="70" x2="75" y2="150" stroke="#333" stroke-width="5"></line>
+        <line x1="75" y1="90" x2="30" y2="120" stroke="#333" stroke-width="5"></line>
+        <line x1="75" y1="90" x2="120" y2="120" stroke="#333" stroke-width="5"></line>
+        <line x1="75" y1="150" x2="45" y2="210" stroke="#333" stroke-width="5"></line>
+        <line x1="75" y1="150" x2="105" y2="210" stroke="#333" stroke-width="5"></line>
       </svg>
     </div>
 
-    <!-- Photos of Leah -->
-    <img id="photo1" class="photo" src="Leah1.jpg" alt="Leah Photo 1">
-    <img id="photo2" class="photo" src="Leah2.jpg" alt="Leah Photo 2">
-    <img id="photo3" class="photo" src="Leah.gif" alt="Leah GIF">
+    <!-- Story Text Boxes -->
+    <div id="txt1" class="text-box" style="top: 10%;">Sweet Boy sets off on a snowy Christmas journey…</div>
+    <div id="txt2" class="text-box" style="top: 10%;">He misses Leah Danielle Nehrbass so much...</div>
+    <div id="txt3" class="text-box" style="top: 10%;">He remembers their happiest moments together...</div>
+    <div id="txt4" class="text-box" style="top: 10%;">Then he spots something magical up ahead…</div>
+    <div id="txt5" class="text-box" style="top: 10%;">Sweet Boy knows he’s almost there...</div>
 
-    <!-- Ending message -->
-    <div id="endingMessage">Merry Christmas my pretty girl ❤️</div>
+    <!-- Photos -->
+    <img id="photo1" class="photo" src="Leah1.jpeg" alt="Leah Photo 1">
+    <img id="photo2" class="photo" src="Leah2.jpeg" alt="Leah Photo 2">
 
+    <!-- Ending GIF -->
+    <img id="endingGif" src="Leah.gif" alt="Leah GIF">
+
+    <!-- Final Message -->
+    <div id="finalMessage">Merry Christmas my pretty girl ❤️</div>
   </div>
 
   <!-- Animation Script -->
   <script>
-    const music = document.getElementById("bgMusic");
+    const bgMusic = document.getElementById("bgMusic");
 
-    // Play music after a user click (many browsers require interaction)
+    // Play music once the user clicks (helps with browser autoplay rules)
     window.addEventListener("click", () => {
-      music.play();
+      bgMusic.play();
     });
 
-    // GSAP timeline for the story
     const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
-    // Sweet Boy enters
-    tl.to("#sweetBoy", {
-      duration: 1.5,
-      opacity: 1,
-      x: "25vw"
-    });
+    // **Sweet Boy appears and starts journey**
+    tl.to("#sweetBoy", { duration: 1.5, opacity: 1, x: "20vw" });
 
-    // Sweet Boy walks across screen
-    tl.to("#sweetBoy", {
-      duration: 2,
-      x: "45vw"
-    });
+    // **Text 1**
+    tl.to("#txt1", { duration: 1.5, opacity: 1 }, "+=0.5");
+    tl.to("#txt1", { duration: 1, opacity: 0 }, "+=2");
 
-    // First photo appears
-    tl.to("#photo1", { duration: 1, opacity: 1 });
-    tl.to("#photo1", { duration: 1, opacity: 0 }, "+=2");
+    // **Move forward**
+    tl.to("#sweetBoy", { duration: 2, x: "35vw" });
 
-    // Continue Sweet Boy journey
-    tl.to("#sweetBoy", {
-      duration: 2,
-      x: "65vw"
-    });
+    // **Text 2**
+    tl.to("#txt2", { duration: 1.5, opacity: 1 });
+    tl.to("#txt2", { duration: 1, opacity: 0 }, "+=2");
 
-    // Second photo appears
-    tl.to("#photo2", { duration: 1, opacity: 1 });
-    tl.to("#photo2", { duration: 1, opacity: 0 }, "+=2");
+    // **Show first photo (memory flash)**
+    tl.to("#photo1", { duration: 1.5, opacity: 1 });
+    tl.to("#photo1", { duration: 1, opacity: 0 }, "+=3");
 
-    // Tiny bounce happy animation
-    tl.to("#sweetBoy", {
-      duration: 0.5,
-      y: "-=15",
-      repeat: 3,
-      yoyo: true
-    });
+    // **Continue journey**
+    tl.to("#sweetBoy", { duration: 2, x: "50vw" });
 
-    // Move center & show Leah GIF
-    tl.to("#sweetBoy", {
-      duration: 1.5,
-      x: "50vw",
-      y: "0"
-    });
-    tl.to("#photo3", { duration: 1, opacity: 1 });
+    // **Text 3**
+    tl.to("#txt3", { duration: 1.5, opacity: 1 });
+    tl.to("#txt3", { duration: 1, opacity: 0 }, "+=2");
 
-    // Ending message
-    tl.to("#endingMessage", { duration: 1.5, opacity: 1, scale: 1.2 });
+    // **Show second photo**
+    tl.to("#photo2", { duration: 1.5, opacity: 1 });
+    tl.to("#photo2", { duration: 1, opacity: 0 }, "+=3");
+
+    // **More journey text**
+    tl.to("#txt4", { duration: 1.5, opacity: 1 });
+    tl.to("#txt4", { duration: 1, opacity: 0 }, "+=2");
+
+    // **Sweet Boy close to destination**
+    tl.to("#sweetBoy", { duration: 2, x: "60vw" });
+
+    // **Almost there text**
+    tl.to("#txt5", { duration: 1.5, opacity: 1 });
+    tl.to("#txt5", { duration: 1, opacity: 0 }, "+=2");
+
+    // **Sweet Boy reaches Leah**
+    tl.to("#sweetBoy", { duration: 1.5, x: "50vw" });
+
+    // **Reveal ending GIF**
+    tl.to("#endingGif", { duration: 1.5, opacity: 1 });
+
+    // **Final Message**
+    tl.to("#finalMessage", { duration: 2, opacity: 1, scale: 1.2 });
   </script>
 
 </body>
 </html>
+
+
 
