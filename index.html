@@ -3,18 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <title>Sweet Boy’s Christmas Adventure</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- GSAP Animation Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
   <style>
-    body, html {
+    html, body {
       margin: 0;
       padding: 0;
-      background: #ffeeee;
+      width: 100%;
+      height: 100%;
       overflow: hidden;
       font-family: Arial, sans-serif;
+      background: #000;
+    }
+
+    body {
+      background: url("wintervillage.jpg") center/cover no-repeat fixed;
+      /* parallax effect: fixed background */
     }
 
     #scene {
@@ -26,14 +33,16 @@
 
     .text-box {
       position: absolute;
-      width: 80%;
-      left: 10%;
+      width: 85%;
+      left: 7.5%;
       padding: 15px;
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.85);
       border-radius: 8px;
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       color: #333;
       opacity: 0;
+      text-align: center;
+      text-shadow: 1px 1px 3px rgba(255,255,255,0.9);
     }
 
     #sweetBoy {
@@ -53,6 +62,7 @@
       top: 25%;
       opacity: 0;
       border-radius: 10px;
+      box-shadow: 0px 0px 6px rgba(0,0,0,0.5);
     }
 
     #endingGif {
@@ -69,18 +79,30 @@
       width: 100%;
       text-align: center;
       top: 60%;
-      font-size: 2rem;
-      color: #9b2335;
+      font-size: 2.2rem;
+      color: #ff2a68;
       opacity: 0;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.8);
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #fff9a2;
+      border-radius: 50%;
+      opacity: 0;
+      pointer-events: none;
     }
   </style>
 </head>
 <body>
 
-  <!-- Background Music -->
+  <!-- Background Music (plays once user clicks) -->
   <audio id="bgMusic" src="music.mp3" loop></audio>
 
   <div id="scene">
+
     <!-- Sweet Boy stick figure -->
     <div id="sweetBoy">
       <svg width="150" height="250">
@@ -93,83 +115,88 @@
       </svg>
     </div>
 
-    <!-- Story Text Boxes -->
-    <div id="txt1" class="text-box" style="top: 10%;">Sweet Boy sets off on a snowy Christmas journey…</div>
-    <div id="txt2" class="text-box" style="top: 10%;">He misses Leah Danielle Nehrbass so much...</div>
-    <div id="txt3" class="text-box" style="top: 10%;">He remembers their happiest moments together...</div>
-    <div id="txt4" class="text-box" style="top: 10%;">Then he spots something magical up ahead…</div>
-    <div id="txt5" class="text-box" style="top: 10%;">Sweet Boy knows he’s almost there...</div>
+    <!-- Story Subtitles -->
+    <div id="txt1" class="text-box">It was Christmas Eve… and Sweet Boy set out on his snowy journey…</div>
+    <div id="txt2" class="text-box">With each step, his heart whispered her name… my pretty girl.</div>
+    <div id="txt3" class="text-box">He remembered their happiest moments, warm even in winter’s chill…</div>
+    <div id="txt4" class="text-box">Through snowy paths and starry nights, he walked on…</div>
+    <div id="txt5" class="text-box">Then up ahead, something magical glowed in the village lights…</div>
 
-    <!-- Photos -->
-    <img id="photo1" class="photo" src="Leah1.jpeg" alt="Leah Photo 1">
-    <img id="photo2" class="photo" src="Leah2.jpeg" alt="Leah Photo 2">
+    <!-- Photos/Memories -->
+    <img id="photo1" class="photo" src="Leah1.jpeg" alt="Sweet memories">
+    <img id="photo2" class="photo" src="Leah2.jpeg" alt="Warm love moments">
 
     <!-- Ending GIF -->
     <img id="endingGif" src="Leah.gif" alt="Leah GIF">
 
     <!-- Final Message -->
     <div id="finalMessage">Merry Christmas my pretty girl ❤️</div>
+
   </div>
 
-  <!-- Animation Script -->
   <script>
     const bgMusic = document.getElementById("bgMusic");
 
-    // Play music once the user clicks (helps with browser autoplay rules)
-    window.addEventListener("click", () => {
-      bgMusic.play();
-    });
+    // play music after first user click (browsers block autoplay otherwise)
+    window.addEventListener("click", () => { bgMusic.play(); });
+
+    function createSparkle(x, y) {
+      const s = document.createElement("div");
+      s.classList.add("sparkle");
+      s.style.left = x + "px";
+      s.style.top = y + "px";
+      document.body.appendChild(s);
+      gsap.fromTo(s, {opacity:1, scale:1}, {opacity:0, scale:2, duration:1.5, onComplete: () => s.remove()});
+    }
 
     const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
-    // **Sweet Boy appears and starts journey**
-    tl.to("#sweetBoy", { duration: 1.5, opacity: 1, x: "20vw" });
+    // Sweet Boy appears and canvas intro
+    tl.to("#sweetBoy", {duration:1.5, opacity:1, x:"20vw"});
 
-    // **Text 1**
-    tl.to("#txt1", { duration: 1.5, opacity: 1 }, "+=0.5");
-    tl.to("#txt1", { duration: 1, opacity: 0 }, "+=2");
+    // Storylines with subtitle timing
+    tl.to("#txt1", {duration:1.3, opacity:1}, "+=0.5");
+    tl.to("#txt1", {duration:1, opacity:0}, "+=2");
 
-    // **Move forward**
-    tl.to("#sweetBoy", { duration: 2, x: "35vw" });
+    tl.to("#sweetBoy", {duration:2, x:"35vw"});
 
-    // **Text 2**
-    tl.to("#txt2", { duration: 1.5, opacity: 1 });
-    tl.to("#txt2", { duration: 1, opacity: 0 }, "+=2");
+    tl.to("#txt2", {duration:1.3, opacity:1});
+    tl.to("#txt2", {duration:1, opacity:0}, "+=2");
 
-    // **Show first photo (memory flash)**
-    tl.to("#photo1", { duration: 1.5, opacity: 1 });
-    tl.to("#photo1", { duration: 1, opacity: 0 }, "+=3");
+    // Photo 1 memory
+    tl.to("#photo1", {duration:1.5, opacity:1});
+    tl.to("#photo1", {duration:1, opacity:0}, "+=3");
 
-    // **Continue journey**
-    tl.to("#sweetBoy", { duration: 2, x: "50vw" });
+    // Continue journey
+    tl.to("#sweetBoy", {duration:2, x:"50vw"});
 
-    // **Text 3**
-    tl.to("#txt3", { duration: 1.5, opacity: 1 });
-    tl.to("#txt3", { duration: 1, opacity: 0 }, "+=2");
+    tl.to("#txt3", {duration:1.3, opacity:1});
+    tl.to("#txt3", {duration:1, opacity:0}, "+=2");
 
-    // **Show second photo**
-    tl.to("#photo2", { duration: 1.5, opacity: 1 });
-    tl.to("#photo2", { duration: 1, opacity: 0 }, "+=3");
+    // Photo 2 memory
+    tl.to("#photo2", {duration:1.5, opacity:1});
+    tl.to("#photo2", {duration:1, opacity:0}, "+=3");
 
-    // **More journey text**
-    tl.to("#txt4", { duration: 1.5, opacity: 1 });
-    tl.to("#txt4", { duration: 1, opacity: 0 }, "+=2");
+    tl.to("#txt4", {duration:1.3, opacity:1});
+    tl.to("#txt4", {duration:1, opacity:0}, "+=2");
 
-    // **Sweet Boy close to destination**
-    tl.to("#sweetBoy", { duration: 2, x: "60vw" });
+    tl.to("#sweetBoy", {duration:2, x:"60vw"});
 
-    // **Almost there text**
-    tl.to("#txt5", { duration: 1.5, opacity: 1 });
-    tl.to("#txt5", { duration: 1, opacity: 0 }, "+=2");
+    tl.to("#txt5", {duration:1.3, opacity:1});
+    tl.to("#txt5", {duration:1, opacity:0}, "+=2");
 
-    // **Sweet Boy reaches Leah**
-    tl.to("#sweetBoy", { duration: 1.5, x: "50vw" });
+    // Sweet Boy reaches center — sparkles
+    tl.to("#sweetBoy", {duration:1.5, x:"50vw"});
+    tl.to({}, {duration:0.1, onComplete: () => {
+      for(let i=0; i < 15; i++){
+        createSparkle(window.innerWidth/2 + (Math.random()-0.5)*200, window.innerHeight/2 + (Math.random()-0.5)*200);
+      }
+    }});
 
-    // **Reveal ending GIF**
-    tl.to("#endingGif", { duration: 1.5, opacity: 1 });
+    // Display final GIF + message
+    tl.to("#endingGif", {duration:1.5, opacity:1});
+    tl.to("#finalMessage", {duration:2, opacity:1, scale:1.2});
 
-    // **Final Message**
-    tl.to("#finalMessage", { duration: 2, opacity: 1, scale: 1.2 });
   </script>
 
 </body>
