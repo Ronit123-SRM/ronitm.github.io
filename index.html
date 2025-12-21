@@ -161,7 +161,7 @@
   <!-- Subtitles -->
   <div id="txt1" class="text-box">It was Christmas Eve… and Sweet Boy set out on his snowy journey…</div>
   <div id="txt2" class="text-box">With every moment he had his head wrapped around a certain girl.</div>
-  <div id="txt3" class="text-box">He remembered their times together, warm even in winter’s chill…</div>
+  <div id="txt3" class="text-box">He remembered their times together, warm even in winter's chill…</div>
   <div id="txt4" class="text-box">Through snowy paths and starry nights, he walked on determined…</div>
   <div id="txt5" class="text-box">Now, at last… he sees her smiling in the glow of the village lights…</div>
 
@@ -214,7 +214,7 @@
 
   // Animate Sweet Boy
   tl.to("#sweetBoy",{duration:1.5, opacity:1, x:"30vw"})
-    .set("#labelSweet",{x:"calc(30vw)",y:"calc(65vh + 45px)",opacity:1});
+    .set("#labelSweet",{x:"calc(30vw)",y:"calc(65vh + 240px)",opacity:1});
 
   // Subtitles
   tl.to("#txt1",{duration:3,opacity:1});
@@ -237,19 +237,19 @@
 
   // Bring in Pretty Girl + bow
   tl.to("#prettyGirl",{duration:1.5,opacity:1},"-=1");
-  tl.set("#labelPretty",{x:"calc(60vw)",y:"calc(65vh + 45px)",opacity:1},"-=1.3");
+  tl.set("#labelPretty",{x:"calc(60vw)",y:"calc(65vh + 240px)",opacity:1},"-=1.3");
   tl.to("#bowImg",{duration:0.5,opacity:1,x:"calc(60vw + 55px)",y:"calc(65vh - 5px)"},"-=1.2");
 
   tl.to("#txt5",{duration:3,opacity:1});
   tl.to("#txt5",{duration:1,opacity:0},"+=2.2");
 
-  // Soft zoom + center meet
+  // Soft zoom + center meet (both characters right next to each other)
   tl.to("#scene",{duration:2,scale:1.15,transformOrigin:"center center"},"-=1.5");
-  tl.to("#sweetBoy",{duration:1.5,x:"40vw"});
-  tl.to("#prettyGirl",{duration:1.5,x:"60vw"},"-=1.5");
-  tl.set("#labelSweet",{x:"calc(40vw)",y:"calc(65vh + 45px)"});
-  tl.set("#labelPretty",{x:"calc(60vw)",y:"calc(65vh + 45px)"});
-  tl.to("#bowImg",{duration:0.5,x:"calc(60vw + 55px)",y:"calc(65vh - 5px)"});
+  tl.to("#sweetBoy",{duration:1.5,x:"calc(50vw - 90px)"});
+  tl.to("#prettyGirl",{duration:1.5,x:"calc(50vw - 60px)"},"-=1.5");
+  tl.set("#labelSweet",{x:"calc(50vw - 90px)",y:"calc(65vh + 240px)"});
+  tl.set("#labelPretty",{x:"calc(50vw - 60px)",y:"calc(65vh + 240px)"});
+  tl.to("#bowImg",{duration:0.5,x:"calc(50vw + 15px)",y:"calc(65vh - 5px)"});
 
   // Hearts + sparkles
   tl.call(()=> {
