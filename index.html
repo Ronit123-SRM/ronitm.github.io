@@ -86,7 +86,10 @@ body{
   color:white;
 }
 
-.tree{position:relative;width:300px;height:420px}
+.tree{
+  position:relative;width:300px;height:420px;
+  filter:drop-shadow(0 0 20px rgba(255,255,255,.15));
+}
 
 .tree-layer{
   position:absolute;left:50%;
@@ -112,7 +115,17 @@ body{
 }
 .ornament.opened{box-shadow:0 0 25px white}
 
-/* ornament positions */
+.ornament.locked{
+  opacity:.4;
+  cursor:not-allowed;
+}
+.ornament.locked::after{
+  content:"⏳";
+  position:absolute;
+  font-size:1rem;
+}
+
+/* positions */
 .o1{top:80px;left:130px;background:crimson}
 .o2{top:120px;left:80px;background:gold}
 .o3{top:120px;left:180px;background:hotpink}
@@ -140,28 +153,43 @@ body{
   transform:scale(.85);
 }
 
-/* ===== FINAL ===== */
+/* ===== FINAL SCENE ===== */
 #finalSurprise{
   position:fixed;inset:0;
-  background:rgba(0,0,0,.92);
+  background:radial-gradient(circle at center,#111,#000);
   display:none;
   align-items:center;
   justify-content:center;
   text-align:center;
   color:white;
+  flex-direction:column;
 }
+
+#finalCard{
+  background:rgba(20,20,20,.85);
+  padding:40px;
+  border-radius:20px;
+  box-shadow:0 0 40px rgba(255,95,162,.4);
+  animation:float 4s ease-in-out infinite;
+}
+
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+}
+
 #finalSurprise h2{
   color:#ff5fa2;
   font-size:3rem;
-  text-shadow:0 0 10px rgba(255,95,162,.6);
+  margin-bottom:15px;
 }
+
 #typedText{
   font-size:1.3rem;
-  line-height:1.6;
+  line-height:1.7;
   white-space:pre-line;
 }
 
-/* hearts */
 .heart{
   position:fixed;
   pointer-events:none;
@@ -172,7 +200,7 @@ body{
 
 <body>
 
-<!-- CLICK START -->
+<!-- CLICK TO START -->
 <div id="startOverlay">
   <div id="startText">❄️ Click to start your story ❄️</div>
 </div>
@@ -183,59 +211,57 @@ body{
 
 <!-- STORY -->
 <div id="scene">
+  <div id="sweetBoy" style="top:65%;left:-20%">
+    <svg width="150" height="250">
+      <circle cx="75" cy="40" r="30" stroke="white" stroke-width="5" fill="none"/>
+      <line x1="75" y1="70" x2="75" y2="140" stroke="white" stroke-width="5"/>
+      <line x1="75" y1="95" x2="30" y2="120" stroke="white" stroke-width="5"/>
+      <line x1="75" y1="95" x2="120" y2="120" stroke="white" stroke-width="5"/>
+      <line x1="75" y1="140" x2="45" y2="210" stroke="white" stroke-width="5"/>
+      <line x1="75" y1="140" x2="105" y2="210" stroke="white" stroke-width="5"/>
+    </svg>
+  </div>
 
-<div id="sweetBoy" style="top:65%;left:-20%">
-<svg width="150" height="250">
-<circle cx="75" cy="40" r="30" stroke="white" stroke-width="5" fill="none"/>
-<line x1="75" y1="70" x2="75" y2="140" stroke="white" stroke-width="5"/>
-<line x1="75" y1="95" x2="30" y2="120" stroke="white" stroke-width="5"/>
-<line x1="75" y1="95" x2="120" y2="120" stroke="white" stroke-width="5"/>
-<line x1="75" y1="140" x2="45" y2="210" stroke="white" stroke-width="5"/>
-<line x1="75" y1="140" x2="105" y2="210" stroke="white" stroke-width="5"/>
-</svg>
-</div>
+  <div id="prettyGirl" style="top:65%;left:85%">
+    <svg width="150" height="250">
+      <circle cx="75" cy="40" r="30" stroke="white" stroke-width="5" fill="none"/>
+      <line x1="75" y1="70" x2="75" y2="140" stroke="white" stroke-width="5"/>
+      <line x1="75" y1="95" x2="40" y2="120" stroke="white" stroke-width="5"/>
+      <line x1="75" y1="95" x2="110" y2="120" stroke="white" stroke-width="5"/>
+      <line x1="75" y1="140" x2="50" y2="210" stroke="white" stroke-width="5"/>
+      <line x1="75" y1="140" x2="100" y2="210" stroke="white" stroke-width="5"/>
+    </svg>
+  </div>
 
-<div id="prettyGirl" style="top:65%;left:85%">
-<svg width="150" height="250">
-<circle cx="75" cy="40" r="30" stroke="white" stroke-width="5" fill="none"/>
-<line x1="75" y1="70" x2="75" y2="140" stroke="white" stroke-width="5"/>
-<line x1="75" y1="95" x2="40" y2="120" stroke="white" stroke-width="5"/>
-<line x1="75" y1="95" x2="110" y2="120" stroke="white" stroke-width="5"/>
-<line x1="75" y1="140" x2="50" y2="210" stroke="white" stroke-width="5"/>
-<line x1="75" y1="140" x2="100" y2="210" stroke="white" stroke-width="5"/>
-</svg>
-</div>
+  <div id="txt1" class="text-box">It was Christmas Eve… and Sweet Boy set out on his snowy journey…</div>
+  <div id="txt2" class="text-box">With every step, his thoughts kept drifting back to her.</div>
+  <div id="txt3" class="text-box">Even in the cold, the memories felt warm.</div>
+  <div id="txt4" class="text-box">Through quiet streets and glowing lights, he kept walking.</div>
+  <div id="txt5" class="text-box">And finally… there she was.</div>
 
-<div id="txt1" class="text-box">It was Christmas Eve… and Sweet Boy set out on his snowy journey…</div>
-<div id="txt2" class="text-box">With every step, his thoughts kept drifting back to her.</div>
-<div id="txt3" class="text-box">Even in the cold, the memories felt warm.</div>
-<div id="txt4" class="text-box">Through quiet streets and glowing lights, he kept walking.</div>
-<div id="txt5" class="text-box">And finally… there she was.</div>
-
-<img id="photo1" class="photo" src="Leah1.jpeg">
-<img id="photo2" class="photo" src="Leah2.jpeg">
-<img id="endingGif" src="Leah.gif">
-<div id="finalMessage">Merry Christmas my pretty girl ❤️</div>
-
+  <img id="photo1" class="photo" src="Leah1.jpeg">
+  <img id="photo2" class="photo" src="Leah2.jpeg">
+  <img id="endingGif" src="Leah.gif">
+  <div id="finalMessage">Merry Christmas my pretty girl ❤️</div>
 </div>
 
 <!-- LOVE TREE -->
 <div id="loveTreePage">
-<h1>🎄 Love Tree 🎄</h1>
-<div class="tree">
-<div class="tree-layer layer1"></div>
-<div class="tree-layer layer2"></div>
-<div class="tree-layer layer3"></div>
-<div class="trunk"></div>
+  <h1>🎄 Love Tree 🎄</h1>
+  <div class="tree">
+    <div class="tree-layer layer1"></div>
+    <div class="tree-layer layer2"></div>
+    <div class="tree-layer layer3"></div>
+    <div class="trunk"></div>
 
-<div class="ornament o1" data-id="1">❤️</div>
-<div class="ornament o2" data-id="2">✨</div>
-<div class="ornament o3" data-id="3">🎁</div>
-<div class="ornament o4" data-id="4">💫</div>
-<div class="ornament o5" data-id="5">💖</div>
-<div class="ornament o6" data-id="6">🌟</div>
-<div class="ornament o7" data-id="7">🎄</div>
-</div>
+    <div class="ornament o1" data-id="1">❤️</div>
+    <div class="ornament o2" data-id="2">✨</div>
+    <div class="ornament o3" data-id="3">🎁</div>
+    <div class="ornament o4" data-id="4">💫</div>
+    <div class="ornament o5" data-id="5">💖</div>
+    <div class="ornament o6" data-id="6">🌟</div>
+    <div class="ornament o7 locked" data-id="7">🎄</div>
+  </div>
 </div>
 
 <!-- MODAL -->
@@ -248,16 +274,25 @@ body{
 
 <!-- FINAL -->
 <div id="finalSurprise">
-<div>
-<h2>You unlocked my heart ❤️</h2>
-<p id="typedText"></p>
-</div>
+  <div id="finalCard">
+    <h2>You unlocked my heart ❤️</h2>
+    <p id="typedText"></p>
+  </div>
 </div>
 
 <script>
 const BEAT_DROP_TIME = 160;
+const finalMessage =
+`I don’t need perfect moments.
+I just need the ones with you.
 
-/* CLICK START */
+Every laugh, every quiet second,
+every little thing you do
+makes this feel like home to me.
+
+I’m really grateful it’s you.
+Always. ❤️`;
+
 const tl = gsap.timeline({paused:true,onComplete:goToTree});
 startOverlay.onclick=()=>{
   startOverlay.style.display="none";
@@ -265,7 +300,7 @@ startOverlay.onclick=()=>{
   tl.play();
 };
 
-/* STORY TIMING */
+/* STORY */
 tl.to("#sweetBoy",{opacity:1,x:"30vw",duration:2})
   .to("#txt1",{opacity:1,duration:3})
   .to("#txt1",{opacity:0,duration:1},"+=2")
@@ -299,7 +334,7 @@ setInterval(()=>{
   }
 },600);
 
-/* ORNAMENTS */
+/* ORNAMENT LOGIC */
 const messages={
 1:"You make me feel calm just by being you.",
 2:"I love how deeply you care.",
@@ -311,53 +346,57 @@ const messages={
 };
 
 let opened=0;
+
 document.querySelectorAll(".ornament").forEach(o=>{
   o.onclick=()=>{
+    if(o.classList.contains("locked")){
+      modalText.textContent="Just a little longer… ✨";
+      openModal();
+      return;
+    }
     if(o.classList.contains("opened"))return;
+
     o.classList.add("opened");
     modalText.textContent=messages[o.dataset.id];
-    modal.style.display="flex";
-    gsap.fromTo("#modal",{opacity:0},{opacity:1,duration:.4});
-    gsap.fromTo("#modalBox",{scale:.85,y:20},{scale:1,y:0,duration:.5});
+    openModal();
     opened++;
-    if(opened===7){
-      fadeOutOrnaments();
+
+    if(opened===6){
       waitForBeat();
+    }
+    if(o.dataset.id==="7"){
+      finalReveal();
     }
   };
 });
 
+function openModal(){
+  modal.style.display="flex";
+  gsap.fromTo("#modal",{opacity:0},{opacity:1,duration:.4});
+  gsap.fromTo("#modalBox",{scale:.85,y:20},{scale:1,y:0,duration:.5});
+}
 function closeModal(){
   gsap.to("#modal",{opacity:0,duration:.3,onComplete:()=>modal.style.display="none"});
-}
-
-function fadeOutOrnaments(){
-  document.querySelectorAll(".ornament").forEach((o,i)=>{
-    gsap.to(o,{opacity:0,duration:.6,delay:i*.25});
-  });
 }
 
 function waitForBeat(){
   const check=setInterval(()=>{
     if(treeMusic.currentTime>=BEAT_DROP_TIME){
       clearInterval(check);
-      finalReveal();
+      unlockFinal();
     }
   },100);
 }
 
-const finalMessage=`I don’t need perfect moments.
-I just need the ones with you.
-
-Every laugh, every quiet second,
-every little thing you do
-makes this feel like home to me.
-
-I’m really grateful it’s you.
-Always. ❤️`;
+function unlockFinal(){
+  const o=document.querySelector(".ornament.o7");
+  o.classList.remove("locked");
+  gsap.fromTo(o,{scale:1},{scale:1.4,yoyo:true,repeat:1,duration:.6});
+}
 
 function finalReveal(){
   finalSurprise.style.display="flex";
+
   let i=0;
   function type(){
     if(i<finalMessage.length){
@@ -366,7 +405,8 @@ function finalReveal(){
     }
   }
   type();
-  for(let i=0;i<30;i++){
+
+  setInterval(()=>{
     const h=document.createElement("div");
     h.className="heart";
     h.textContent="❤️";
@@ -374,7 +414,7 @@ function finalReveal(){
     h.style.top=innerHeight+"px";
     document.body.appendChild(h);
     gsap.to(h,{y:-200,opacity:0,duration:2,onComplete:()=>h.remove()});
-  }
+  },300);
 }
 </script>
 
