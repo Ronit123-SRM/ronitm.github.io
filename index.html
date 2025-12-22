@@ -2,174 +2,113 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Sweet Boy & Pretty Girl Christmas Story</title>
+<title>Sweet Boy & Pretty Girl</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
 <style>
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  font-family: Arial, sans-serif;
+html,body{
+  margin:0;padding:0;width:100%;height:100%;
+  overflow:hidden;font-family:Arial,sans-serif;
+  background:#000;
 }
 
-/* ================= SCENE 1 ================= */
-body {
-  background: url("wintervillage.jpg") center/cover no-repeat fixed;
+/* ---------- STORY SCENE ---------- */
+body{
+  background:url("wintervillage.jpg") center/cover no-repeat fixed;
 }
 
-#scene {
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
+#scene{
+  position:absolute;
+  width:100vw;height:100vh;
 }
 
-.snowflake {
-  position: fixed;
-  top: -10vh;
-  animation: fall linear infinite;
-  opacity: 0.7;
-}
-@keyframes fall { to { transform: translateY(110vh); } }
-
-.text-box {
-  position: absolute;
-  width: 85%;
-  left: 7.5%;
-  padding: 14px;
-  background: rgba(255,255,255,0.9);
-  border-radius: 10px;
-  font-size: 1.4rem;
-  opacity: 0;
-  text-align: center;
+.text-box{
+  position:absolute;
+  width:85%;left:7.5%;
+  padding:14px;
+  background:rgba(255,255,255,.9);
+  border-radius:10px;
+  font-size:1.4rem;
+  opacity:0;
+  text-align:center;
 }
 
-#sweetBoy, #prettyGirl {
-  position: absolute;
-  width: 150px;
-  opacity: 0;
+#sweetBoy,#prettyGirl{
+  position:absolute;width:150px;opacity:0;
 }
 
-.photo {
-  position: absolute;
-  max-width: 260px;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 25%;
-  opacity: 0;
+.photo,#endingGif{
+  position:absolute;
+  left:50%;transform:translateX(-50%);
+  max-width:260px;opacity:0;
 }
 
-#endingGif {
-  position: absolute;
-  max-width: 260px;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 38%;
-  opacity: 0;
+#photo1,#photo2{top:25%}
+#endingGif{top:38%}
+
+#finalMessage{
+  position:absolute;width:100%;
+  top:75%;text-align:center;
+  font-size:2.2rem;color:#ff2a68;
+  opacity:0;
 }
 
-#finalMessage {
-  position: absolute;
-  width: 100%;
-  top: 75%;
-  text-align: center;
-  font-size: 2.2rem;
-  color: #ff2a68;
-  opacity: 0;
+/* ---------- LOVE TREE ---------- */
+#loveTreePage{
+  position:fixed;inset:0;
+  background:radial-gradient(circle at top,#0b2d1c,#000);
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  color:white;
 }
 
-/* ================= LOVE TREE ================= */
-#loveTreePage {
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle at top, #0b2d1c, #000);
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
+.tree{position:relative;width:300px;height:420px}
+
+.tree-layer{
+  position:absolute;left:50%;
+  transform:translateX(-50%);
+  border-left:150px solid transparent;
+  border-right:150px solid transparent;
+}
+.layer1{top:0;border-bottom:120px solid #1f7a3d}
+.layer2{top:70px;border-bottom:140px solid #1b6b35}
+.layer3{top:150px;border-bottom:160px solid #165c2e}
+
+.trunk{
+  position:absolute;bottom:0;left:50%;
+  transform:translateX(-50%);
+  width:50px;height:70px;background:#6b3e26;
 }
 
-#loveTreePage h1 {
-  font-size: 3rem;
-  margin-bottom: 20px;
+.ornament{
+  position:absolute;width:42px;height:42px;
+  border-radius:50%;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;
 }
+.ornament.clicked{box-shadow:0 0 25px white}
 
-.tree {
-  position: relative;
-  width: 300px;
-  height: 420px;
-}
+.o1{top:80px;left:130px;background:crimson}
+.o2{top:120px;left:80px;background:gold}
+.o3{top:120px;left:180px;background:hotpink}
+.o4{top:190px;left:60px;background:lightskyblue}
+.o5{top:190px;left:200px;background:violet}
+.o6{top:260px;left:110px;background:orange}
+.o7{top:260px;left:160px;background:limegreen}
 
-.tree-layer {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  border-left: 150px solid transparent;
-  border-right: 150px solid transparent;
-}
-
-.layer1 { top: 0; border-bottom: 120px solid #1f7a3d; }
-.layer2 { top: 70px; border-bottom: 140px solid #1b6b35; }
-.layer3 { top: 150px; border-bottom: 160px solid #165c2e; }
-
-.trunk {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50px;
-  height: 70px;
-  background: #6b3e26;
-}
-
-.ornament {
-  position: absolute;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 1.3rem;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.ornament:hover {
-  transform: scale(1.25);
-  box-shadow: 0 0 20px rgba(255,255,255,0.9);
-}
-
-/* Ornament positions */
-.o1 { top: 80px; left: 130px; background: crimson; }
-.o2 { top: 120px; left: 80px; background: gold; }
-.o3 { top: 120px; left: 180px; background: hotpink; }
-.o4 { top: 190px; left: 60px; background: lightskyblue; }
-.o5 { top: 190px; left: 200px; background: violet; }
-.o6 { top: 260px; left: 110px; background: orange; }
-.o7 { top: 260px; left: 160px; background: limegreen; }
-
-/* ================= MESSAGE MODAL ================= */
-#messageOverlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.85);
-  display: none;
-  align-items: center;
-  justify-content: center;
-}
-
-.message-box {
-  max-width: 420px;
-  padding: 30px;
-  background: #111;
-  border-radius: 15px;
-  text-align: center;
-  font-size: 1.2rem;
+/* ---------- FINAL SURPRISE ---------- */
+#finalSurprise{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.9);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:white;
 }
 </style>
 </head>
@@ -177,41 +116,38 @@ body {
 <body>
 
 <!-- 🎵 MUSIC -->
-<audio id="bgMusic" src="music.mp3" loop muted autoplay></audio>
+<audio id="storyMusic" src="music.mp3" autoplay loop></audio>
 <audio id="treeMusic" src="love-tree-music.mp3" loop></audio>
 
-<!-- ================= SCENE 1 ================= -->
+<!-- ---------- STORY ---------- -->
 <div id="scene">
 
-<!-- Sweet Boy -->
-<div id="sweetBoy" style="top:65%; left:-20%;">
+<div id="sweetBoy" style="top:65%;left:-20%">
 <svg width="150" height="250">
-  <circle cx="75" cy="40" r="30" stroke="white" stroke-width="5" fill="none"/>
-  <line x1="75" y1="70" x2="75" y2="140" stroke="white" stroke-width="5"/>
-  <line x1="75" y1="95" x2="30" y2="120" stroke="white" stroke-width="5"/>
-  <line x1="75" y1="95" x2="120" y2="120" stroke="white" stroke-width="5"/>
-  <line x1="75" y1="140" x2="45" y2="210" stroke="white" stroke-width="5"/>
-  <line x1="75" y1="140" x2="105" y2="210" stroke="white" stroke-width="5"/>
+<circle cx="75" cy="40" r="30" stroke="white" stroke-width="5" fill="none"/>
+<line x1="75" y1="70" x2="75" y2="140" stroke="white" stroke-width="5"/>
+<line x1="75" y1="95" x2="30" y2="120" stroke="white" stroke-width="5"/>
+<line x1="75" y1="95" x2="120" y2="120" stroke="white" stroke-width="5"/>
+<line x1="75" y1="140" x2="45" y2="210" stroke="white" stroke-width="5"/>
+<line x1="75" y1="140" x2="105" y2="210" stroke="white" stroke-width="5"/>
 </svg>
 </div>
 
-<!-- Pretty Girl -->
-<div id="prettyGirl" style="top:65%; left:85%;">
+<div id="prettyGirl" style="top:65%;left:85%">
 <svg width="150" height="250">
-  <circle cx="75" cy="40" r="30" stroke="white" stroke-width="5" fill="none"/>
-  <line x1="75" y1="70" x2="75" y2="140" stroke="white" stroke-width="5"/>
-  <line x1="75" y1="95" x2="40" y2="120" stroke="white" stroke-width="5"/>
-  <line x1="75" y1="95" x2="110" y2="120" stroke="white" stroke-width="5"/>
-  <line x1="75" y1="140" x2="50" y2="210" stroke="white" stroke-width="5"/>
-  <line x1="75" y1="140" x2="100" y2="210" stroke="white" stroke-width="5"/>
+<circle cx="75" cy="40" r="30" stroke="white" stroke-width="5" fill="none"/>
+<line x1="75" y1="70" x2="75" y2="140" stroke="white" stroke-width="5"/>
+<line x1="75" y1="95" x2="40" y2="120" stroke="white" stroke-width="5"/>
+<line x1="75" y1="95" x2="110" y2="120" stroke="white" stroke-width="5"/>
+<line x1="75" y1="140" x2="50" y2="210" stroke="white" stroke-width="5"/>
+<line x1="75" y1="140" x2="100" y2="210" stroke="white" stroke-width="5"/>
 </svg>
 </div>
 
-<div id="txt1" class="text-box">It was Christmas Eve… and Sweet Boy set out on his snowy journey…</div>
-<div id="txt2" class="text-box">With every moment he had his head wrapped around a certain girl.</div>
-<div id="txt3" class="text-box">He remembered their times together, warm even in winter's chill…</div>
-<div id="txt4" class="text-box">Through snowy paths and starry nights, he walked on determined…</div>
-<div id="txt5" class="text-box">Now, at last… he sees her smiling in the glow of the village lights…</div>
+<div id="txt1" class="text-box">It was Christmas Eve…</div>
+<div id="txt2" class="text-box">His thoughts were always on her.</div>
+<div id="txt3" class="text-box">Even winter couldn’t cool the warmth.</div>
+<div id="txt4" class="text-box">And finally… he found her.</div>
 
 <img id="photo1" class="photo" src="Leah1.jpeg">
 <img id="photo2" class="photo" src="Leah2.jpeg">
@@ -220,101 +156,66 @@ body {
 
 </div>
 
-<!-- ================= LOVE TREE ================= -->
+<!-- ---------- LOVE TREE ---------- -->
 <div id="loveTreePage">
 <h1>🎄 Love Tree 🎄</h1>
-
 <div class="tree">
-  <div class="tree-layer layer1"></div>
-  <div class="tree-layer layer2"></div>
-  <div class="tree-layer layer3"></div>
-  <div class="trunk"></div>
+<div class="tree-layer layer1"></div>
+<div class="tree-layer layer2"></div>
+<div class="tree-layer layer3"></div>
+<div class="trunk"></div>
 
-  <div class="ornament o1" onclick="openMessage(1)">❤️</div>
-  <div class="ornament o2" onclick="openMessage(2)">✨</div>
-  <div class="ornament o3" onclick="openMessage(3)">🎁</div>
-  <div class="ornament o4" onclick="openMessage(4)">💫</div>
-  <div class="ornament o5" onclick="openMessage(5)">💖</div>
-  <div class="ornament o6" onclick="openMessage(6)">🌟</div>
-  <div class="ornament o7" onclick="openMessage(7)">🎄</div>
+<div class="ornament o1">❤️</div>
+<div class="ornament o2">✨</div>
+<div class="ornament o3">🎁</div>
+<div class="ornament o4">💫</div>
+<div class="ornament o5">💖</div>
+<div class="ornament o6">🌟</div>
+<div class="ornament o7">🎄</div>
 </div>
 </div>
 
-<!-- MESSAGE -->
-<div id="messageOverlay">
-  <div class="message-box">
-    <p id="messageText"></p><br>
-    <button onclick="closeMessage()">Close</button>
-  </div>
+<!-- ---------- FINAL ---------- -->
+<div id="finalSurprise">
+<div>
+<h2>You unlocked my heart ❤️</h2>
+<p>It’s always been you.</p>
+</div>
 </div>
 
 <script>
-const bgMusic = document.getElementById("bgMusic");
-const treeMusic = document.getElementById("treeMusic");
+/* STORY TIMELINE */
+const tl=gsap.timeline({onComplete:goToTree});
+tl.to("#sweetBoy",{opacity:1,x:"30vw",duration:2})
+  .to("#txt1",{opacity:1,duration:2})
+  .to("#txt1",{opacity:0,duration:1})
+  .to("#txt2",{opacity:1,duration:2})
+  .to("#photo1",{opacity:1,duration:2})
+  .to("#txt3",{opacity:1,duration:2})
+  .to("#photo2",{opacity:1,duration:2})
+  .to("#prettyGirl",{opacity:1,duration:2})
+  .to("#endingGif",{opacity:1,duration:2})
+  .to("#finalMessage",{opacity:1,scale:1.2,duration:2});
 
-/* Unmute & fade in on first interaction */
-window.addEventListener("click", () => {
-  bgMusic.muted = false;
-  bgMusic.volume = 0;
-  bgMusic.play();
-  gsap.to(bgMusic, { volume: 1, duration: 3 });
-}, { once: true });
-
-const messages = {
-  1: "You are my safest place.",
-  2: "Loving you feels warm no matter the season.",
-  3: "Every moment with you is a gift.",
-  4: "You make everything brighter.",
-  5: "I smile every time I think of you.",
-  6: "You feel like home.",
-  7: "I choose you — always."
-};
-
-function openMessage(id) {
-  document.getElementById("messageText").innerText = messages[id];
-  document.getElementById("messageOverlay").style.display = "flex";
-}
-function closeMessage() {
-  document.getElementById("messageOverlay").style.display = "none";
+function goToTree(){
+  document.getElementById("storyMusic").pause();
+  document.getElementById("scene").style.display="none";
+  document.getElementById("loveTreePage").style.display="flex";
+  document.getElementById("treeMusic").play();
 }
 
-function goToLoveTree() {
-  gsap.to(bgMusic, { volume: 0, duration: 3 });
-  gsap.to("#scene", {
-    opacity: 0,
-    duration: 2,
-    onComplete: () => {
-      bgMusic.pause();
-      document.getElementById("scene").style.display = "none";
-      document.getElementById("loveTreePage").style.display = "flex";
-      treeMusic.play();
+/* ORNAMENT LOGIC */
+let clicked=0;
+document.querySelectorAll(".ornament").forEach(o=>{
+  o.onclick=()=>{
+    if(o.classList.contains("clicked"))return;
+    o.classList.add("clicked");
+    clicked++;
+    if(clicked===7){
+      document.getElementById("finalSurprise").style.display="flex";
     }
-  });
-}
-
-const tl = gsap.timeline({
-  defaults:{ ease:"power2.out" },
-  onComplete: goToLoveTree
+  }
 });
-
-tl.to("#sweetBoy",{duration:1.5,opacity:1,x:"30vw"})
-  .to("#txt1",{duration:3,opacity:1})
-  .to("#txt1",{duration:1,opacity:0},"+=2")
-  .to("#txt2",{duration:3,opacity:1})
-  .to("#txt2",{duration:1,opacity:0},"+=2")
-  .to("#photo1",{duration:1.5,opacity:1})
-  .to("#photo1",{duration:1,opacity:0},"+=3")
-  .to("#txt3",{duration:3,opacity:1})
-  .to("#txt3",{duration:1,opacity:0},"+=2")
-  .to("#photo2",{duration:1.5,opacity:1})
-  .to("#photo2",{duration:1,opacity:0},"+=3")
-  .to("#txt4",{duration:3,opacity:1})
-  .to("#txt4",{duration:1,opacity:0},"+=2")
-  .to("#prettyGirl",{duration:1.5,opacity:1})
-  .to("#txt5",{duration:3,opacity:1})
-  .to("#txt5",{duration:1,opacity:0},"+=2")
-  .to("#endingGif",{duration:1.5,opacity:1})
-  .to("#finalMessage",{duration:2,opacity:1,scale:1.3});
 </script>
 
 </body>
