@@ -14,14 +14,13 @@ html,body{
   background:#000;
 }
 
-/* ---------- STORY SCENE ---------- */
+/* ===== STORY ===== */
 body{
   background:url("wintervillage.jpg") center/cover no-repeat fixed;
 }
 
 #scene{
-  position:absolute;
-  width:100vw;height:100vh;
+  position:absolute;width:100vw;height:100vh;
 }
 
 .text-box{
@@ -39,14 +38,19 @@ body{
   position:absolute;width:150px;opacity:0;
 }
 
-.photo,#endingGif{
+.photo{
   position:absolute;
+  max-width:260px;
   left:50%;transform:translateX(-50%);
-  max-width:260px;opacity:0;
+  top:25%;opacity:0;
 }
 
-#photo1,#photo2{top:25%}
-#endingGif{top:38%}
+#endingGif{
+  position:absolute;
+  max-width:260px;
+  left:50%;transform:translateX(-50%);
+  top:38%;opacity:0;
+}
 
 #finalMessage{
   position:absolute;width:100%;
@@ -55,7 +59,7 @@ body{
   opacity:0;
 }
 
-/* ---------- LOVE TREE ---------- */
+/* ===== LOVE TREE ===== */
 #loveTreePage{
   position:fixed;inset:0;
   background:radial-gradient(circle at top,#0b2d1c,#000);
@@ -86,12 +90,14 @@ body{
 
 .ornament{
   position:absolute;width:42px;height:42px;
-  border-radius:50%;cursor:pointer;
+  border-radius:50%;
+  cursor:pointer;
   display:flex;align-items:center;justify-content:center;
   font-size:1.3rem;
 }
-.ornament.clicked{box-shadow:0 0 25px white}
+.ornament.opened{box-shadow:0 0 25px white}
 
+/* positions */
 .o1{top:80px;left:130px;background:crimson}
 .o2{top:120px;left:80px;background:gold}
 .o3{top:120px;left:180px;background:hotpink}
@@ -100,7 +106,26 @@ body{
 .o6{top:260px;left:110px;background:orange}
 .o7{top:260px;left:160px;background:limegreen}
 
-/* ---------- FINAL SURPRISE ---------- */
+/* ===== MODAL ===== */
+#modal{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.85);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  color:white;
+}
+
+#modalBox{
+  background:#111;
+  padding:30px;
+  border-radius:15px;
+  max-width:420px;
+  text-align:center;
+  font-size:1.2rem;
+}
+
+/* ===== FINAL ===== */
 #finalSurprise{
   position:fixed;inset:0;
   background:rgba(0,0,0,.9);
@@ -108,18 +133,17 @@ body{
   align-items:center;
   justify-content:center;
   text-align:center;
-  color:white;
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🎵 MUSIC -->
+<!-- MUSIC -->
 <audio id="storyMusic" src="music.mp3" autoplay loop></audio>
 <audio id="treeMusic" src="love-tree-music.mp3" loop></audio>
 
-<!-- ---------- STORY ---------- -->
+<!-- ===== STORY SCENE ===== -->
 <div id="scene">
 
 <div id="sweetBoy" style="top:65%;left:-20%">
@@ -144,10 +168,11 @@ body{
 </svg>
 </div>
 
-<div id="txt1" class="text-box">It was Christmas Eve…</div>
-<div id="txt2" class="text-box">His thoughts were always on her.</div>
-<div id="txt3" class="text-box">Even winter couldn’t cool the warmth.</div>
-<div id="txt4" class="text-box">And finally… he found her.</div>
+<div id="txt1" class="text-box">It was Christmas Eve… and Sweet Boy set out on his snowy journey…</div>
+<div id="txt2" class="text-box">With every step, his thoughts kept drifting back to her.</div>
+<div id="txt3" class="text-box">Even in the cold, the memories felt warm.</div>
+<div id="txt4" class="text-box">Through quiet streets and glowing lights, he kept walking.</div>
+<div id="txt5" class="text-box">And finally… there she was.</div>
 
 <img id="photo1" class="photo" src="Leah1.jpeg">
 <img id="photo2" class="photo" src="Leah2.jpeg">
@@ -156,7 +181,7 @@ body{
 
 </div>
 
-<!-- ---------- LOVE TREE ---------- -->
+<!-- ===== LOVE TREE ===== -->
 <div id="loveTreePage">
 <h1>🎄 Love Tree 🎄</h1>
 <div class="tree">
@@ -165,58 +190,94 @@ body{
 <div class="tree-layer layer3"></div>
 <div class="trunk"></div>
 
-<div class="ornament o1">❤️</div>
-<div class="ornament o2">✨</div>
-<div class="ornament o3">🎁</div>
-<div class="ornament o4">💫</div>
-<div class="ornament o5">💖</div>
-<div class="ornament o6">🌟</div>
-<div class="ornament o7">🎄</div>
+<div class="ornament o1" data-id="1">❤️</div>
+<div class="ornament o2" data-id="2">✨</div>
+<div class="ornament o3" data-id="3">🎁</div>
+<div class="ornament o4" data-id="4">💫</div>
+<div class="ornament o5" data-id="5">💖</div>
+<div class="ornament o6" data-id="6">🌟</div>
+<div class="ornament o7" data-id="7">🎄</div>
 </div>
 </div>
 
-<!-- ---------- FINAL ---------- -->
+<!-- MODAL -->
+<div id="modal">
+  <div id="modalBox">
+    <p id="modalText"></p><br>
+    <button onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+<!-- FINAL -->
 <div id="finalSurprise">
 <div>
 <h2>You unlocked my heart ❤️</h2>
-<p>It’s always been you.</p>
+<p>Every ornament held a piece of how much you mean to me.</p>
 </div>
 </div>
 
 <script>
-/* STORY TIMELINE */
+/* ===== STORY TIMELINE (SLOWER, ORIGINAL FEEL) ===== */
 const tl=gsap.timeline({onComplete:goToTree});
 tl.to("#sweetBoy",{opacity:1,x:"30vw",duration:2})
-  .to("#txt1",{opacity:1,duration:2})
-  .to("#txt1",{opacity:0,duration:1})
-  .to("#txt2",{opacity:1,duration:2})
+  .to("#txt1",{opacity:1,duration:3})
+  .to("#txt1",{opacity:0,duration:1},"+=2")
+  .to("#txt2",{opacity:1,duration:3})
+  .to("#txt2",{opacity:0,duration:1},"+=2")
   .to("#photo1",{opacity:1,duration:2})
-  .to("#txt3",{opacity:1,duration:2})
+  .to("#photo1",{opacity:0,duration:1},"+=3")
+  .to("#txt3",{opacity:1,duration:3})
+  .to("#txt3",{opacity:0,duration:1},"+=2")
   .to("#photo2",{opacity:1,duration:2})
+  .to("#photo2",{opacity:0,duration:1},"+=3")
+  .to("#txt4",{opacity:1,duration:3})
+  .to("#txt4",{opacity:0,duration:1},"+=2")
   .to("#prettyGirl",{opacity:1,duration:2})
+  .to("#txt5",{opacity:1,duration:3})
+  .to("#txt5",{opacity:0,duration:1},"+=2")
   .to("#endingGif",{opacity:1,duration:2})
   .to("#finalMessage",{opacity:1,scale:1.2,duration:2});
 
+/* ===== TRANSITION ===== */
 function goToTree(){
-  document.getElementById("storyMusic").pause();
-  document.getElementById("scene").style.display="none";
-  document.getElementById("loveTreePage").style.display="flex";
-  document.getElementById("treeMusic").play();
+  storyMusic.pause();
+  scene.style.display="none";
+  loveTreePage.style.display="flex";
+  treeMusic.play();
 }
 
-/* ORNAMENT LOGIC */
-let clicked=0;
+/* ===== ORNAMENT MESSAGES ===== */
+const messages={
+  1:"You make me feel calm just by being you.",
+  2:"I love the way you care — it never goes unnoticed.",
+  3:"Every memory with you is something I hold close.",
+  4:"You make ordinary moments feel special.",
+  5:"I smile every time I think about you.",
+  6:"Being with you feels like home.",
+  7:"I choose you, always."
+};
+
+let openedCount=0;
+
 document.querySelectorAll(".ornament").forEach(o=>{
   o.onclick=()=>{
-    if(o.classList.contains("clicked"))return;
-    o.classList.add("clicked");
-    clicked++;
-    if(clicked===7){
-      document.getElementById("finalSurprise").style.display="flex";
+    if(o.classList.contains("opened"))return;
+    const id=o.dataset.id;
+    modalText.textContent=messages[id];
+    modal.style.display="flex";
+    o.classList.add("opened");
+    openedCount++;
+    if(openedCount===7){
+      setTimeout(()=>finalSurprise.style.display="flex",500);
     }
-  }
+  };
 });
+
+function closeModal(){
+  modal.style.display="none";
+}
 </script>
 
 </body>
 </html>
+
