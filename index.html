@@ -75,29 +75,26 @@ body{
   text-shadow:2px 2px 8px rgba(0,0,0,.8);
 }
 
-/* ========= NEXT SCREEN ========= */
-#nextScreen{
-  position:fixed;inset:0;
-  background:rgba(0,0,0,.92);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
+/* ========= CORNER NEXT PROMPT ========= */
+#nextCorner{
+  position:fixed;
+  bottom:18px;
+  right:22px;
+  font-size:1.1rem;
   color:white;
+  opacity:0;
   cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  z-index:50;
+  animation:fadePulse 2s infinite;
 }
-#nextArrow{
-  font-size:4rem;
-  animation:arrowBounce 1.5s infinite;
-}
-#nextText{
-  margin-top:10px;
-  font-size:1.4rem;
-  opacity:.8;
-}
-@keyframes arrowBounce{
-  0%,100%{transform:translateX(0)}
-  50%{transform:translateX(12px)}
+#nextArrow{font-size:1.5rem}
+
+@keyframes fadePulse{
+  0%,100%{opacity:.35}
+  50%{opacity:1}
 }
 
 /* ========= LOVE TREE ========= */
@@ -110,12 +107,13 @@ body{
 
 #treeHint{
   position:absolute;
-  top:15px;
-  right:20px;
-  font-size:0.95rem;
-  opacity:0.65;
+  top:24px;
+  right:26px;
+  font-size:1.1rem;
+  opacity:.85;
+  max-width:260px;
+  line-height:1.4;
   text-align:right;
-  max-width:200px;
 }
 
 .treeWrap{
@@ -125,7 +123,25 @@ body{
   height:100%;
 }
 
-.tree{position:relative;width:300px;height:420px}
+.tree{
+  position:relative;
+  width:300px;
+  height:440px;
+}
+
+/* heart topper */
+#treeHeart{
+  position:absolute;
+  top:-26px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:2.2rem;
+  animation:heartGlow 2.5s infinite;
+}
+@keyframes heartGlow{
+  0%,100%{filter:drop-shadow(0 0 6px #ff6fa8)}
+  50%{filter:drop-shadow(0 0 18px #ffb3d1)}
+}
 
 .tree-layer{
   position:absolute;left:50%;
@@ -133,9 +149,9 @@ body{
   border-left:150px solid transparent;
   border-right:150px solid transparent;
 }
-.layer1{top:0;border-bottom:120px solid #1f7a3d}
-.layer2{top:70px;border-bottom:140px solid #1b6b35}
-.layer3{top:150px;border-bottom:160px solid #165c2e}
+.layer1{top:20px;border-bottom:120px solid #1f7a3d}
+.layer2{top:90px;border-bottom:140px solid #1b6b35}
+.layer3{top:170px;border-bottom:160px solid #165c2e}
 
 .trunk{
   position:absolute;bottom:0;left:50%;
@@ -154,13 +170,13 @@ body{
 .ornament.locked::after{content:"⏳";position:absolute}
 
 /* positions */
-.o1{top:80px;left:130px;background:crimson}
-.o2{top:120px;left:80px;background:gold}
-.o3{top:120px;left:180px;background:hotpink}
-.o4{top:190px;left:60px;background:lightskyblue}
-.o5{top:190px;left:200px;background:violet}
-.o6{top:260px;left:110px;background:orange}
-.o7{top:260px;left:160px;background:limegreen}
+.o1{top:110px;left:130px;background:crimson}
+.o2{top:150px;left:80px;background:gold}
+.o3{top:150px;left:180px;background:hotpink}
+.o4{top:220px;left:60px;background:lightskyblue}
+.o5{top:220px;left:200px;background:violet}
+.o6{top:290px;left:110px;background:orange}
+.o7{top:290px;left:160px;background:limegreen}
 
 /* ========= MODAL ========= */
 #modal{
@@ -245,22 +261,19 @@ body{
   <div id="finalMessage">Merry Christmas my pretty girl ❤️</div>
 </div>
 
-<!-- NEXT -->
-<div id="nextScreen">
-  <div id="nextArrow">➜</div>
-  <div id="nextText">Click next to continue</div>
-</div>
+<!-- NEXT CORNER -->
+<div id="nextCorner"><span id="nextArrow">➜</span><span>Click next to continue</span></div>
 
 <!-- LOVE TREE -->
 <div id="loveTreePage">
   <div id="treeHint">
-    Take your time.<br>
-    Some things feel right<br>
-    when the moment does.
+    Follow what feels right.<br>
+    Not everything opens at once.
   </div>
 
   <div class="treeWrap">
     <div class="tree">
+      <div id="treeHeart">❤️</div>
       <div class="tree-layer layer1"></div>
       <div class="tree-layer layer2"></div>
       <div class="tree-layer layer3"></div>
@@ -289,7 +302,6 @@ body{
 
 <script>
 const BEAT_DROP_TIME = 160;
-const NAME_END_TIME = 183;
 
 const nameLine = "Dear Leah Danielle Nehrbass";
 const letterMessage =
@@ -306,7 +318,7 @@ Always. ❤️`;
 const NAME_SPEED = 800;
 const LETTER_SPEED = 220;
 
-const tl = gsap.timeline({paused:true,onComplete:showNext});
+const tl = gsap.timeline({paused:true,onComplete:showNextCorner});
 
 startOverlay.onclick=()=>{
   startOverlay.style.display="none";
@@ -333,14 +345,14 @@ tl.to("#sweetBoy",{opacity:1,x:"30vw",duration:2})
   .to("#endingGif",{opacity:1,duration:2})
   .to("#finalMessage",{opacity:1,scale:1.2,duration:2});
 
-function showNext(){
+function showNextCorner(){
   storyMusic.pause();
-  scene.style.display="none";
-  nextScreen.style.display="flex";
+  nextCorner.style.display="flex";
 }
 
-nextScreen.onclick=()=>{
-  nextScreen.style.display="none";
+nextCorner.onclick=()=>{
+  nextCorner.style.display="none";
+  scene.style.display="none";
   loveTreePage.style.display="block";
   treeMusic.play();
 };
@@ -392,36 +404,60 @@ function waitForBeat(){
 }
 
 function finalReveal(){
-  finalSurprise.style.display="flex";
-  typedText.textContent="";
+  finalSurprise.style.display = "flex";
 
-  let nameIndex=0;
+  // reset text
+  typedText.textContent = "";
 
-  const wait=setInterval(()=>{
-    if(treeMusic.currentTime>=BEAT_DROP_TIME){
-      clearInterval(wait);
+  const NAME_START = 160; // 2:40
+  const NAME_END   = 183; // 3:03
+
+  const NAME_SPEED   = 800; // ms per character
+  const LETTER_SPEED = 220; // slow + emotional
+
+  const nameLine = "Dear Leah Danielle Nehrbass";
+
+  const letterMessage =
+`I don’t need perfect moments.
+I just need the ones with you.
+
+Every laugh, every quiet second,
+every little thing you do
+makes this feel like home to me.
+
+I’m really grateful it’s you.
+Always. ❤️`;
+
+  let nameIndex = 0;
+  let letterIndex = 0;
+
+  // wait for beat drop
+  const waitForBeat = setInterval(() => {
+    if (treeMusic.currentTime >= NAME_START) {
+      clearInterval(waitForBeat);
       typeName();
     }
-  },50);
+  }, 50);
 
   function typeName(){
-    if(nameIndex<nameLine.length){
-      typedText.textContent+=nameLine[nameIndex++];
-      setTimeout(typeName,NAME_SPEED);
-    }else{
-      typedText.textContent+="\n\n";
-      setTimeout(typeLetter,1200);
+    if (nameIndex < nameLine.length) {
+      typedText.textContent += nameLine[nameIndex++];
+      setTimeout(typeName, NAME_SPEED);
+    } else {
+      // pause before letter
+      typedText.textContent += "\n\n";
+      setTimeout(typeLetter, 1200);
     }
   }
 
-  let letterIndex=0;
   function typeLetter(){
-    if(letterIndex<letterMessage.length){
-      typedText.textContent+=letterMessage[letterIndex++];
-      setTimeout(typeLetter,LETTER_SPEED);
+    if (letterIndex < letterMessage.length) {
+      typedText.textContent += letterMessage[letterIndex++];
+      setTimeout(typeLetter, LETTER_SPEED);
     }
   }
 }
+
 </script>
 
 </body>
