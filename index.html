@@ -13,7 +13,7 @@ html,body{
   background:black;
 }
 
-/* ========= CLICK TO START ========= */
+/* START */
 #startOverlay{
   position:fixed;inset:0;
   background:black;
@@ -32,7 +32,7 @@ html,body{
   50%{opacity:1}
 }
 
-/* ========= STORY ========= */
+/* STORY */
 body{
   background:url("wintervillage.jpg") center/cover no-repeat fixed;
 }
@@ -41,6 +41,7 @@ body{
 .text-box{
   position:absolute;
   width:85%;left:7.5%;
+  top:10%;
   padding:14px;
   background:rgba(255,255,255,.9);
   border-radius:10px;
@@ -49,15 +50,11 @@ body{
   text-align:center;
 }
 
-#sweetBoy,#prettyGirl{
-  position:absolute;width:150px;opacity:0;
-}
-
 .photo{
   position:absolute;
   max-width:260px;
   left:50%;transform:translateX(-50%);
-  top:25%;opacity:0;
+  top:30%;opacity:0;
 }
 
 #endingGif{
@@ -68,14 +65,17 @@ body{
 }
 
 #finalMessage{
-  position:absolute;width:100%;
-  top:75%;text-align:center;
-  font-size:2.2rem;color:#ff2a68;
+  position:absolute;
+  width:100%;
+  top:75%;
+  text-align:center;
+  font-size:2.2rem;
+  color:#ff2a68;
   opacity:0;
   text-shadow:2px 2px 8px rgba(0,0,0,.8);
 }
 
-/* ========= CORNER NEXT ========= */
+/* NEXT */
 #nextCorner{
   position:fixed;
   bottom:18px;
@@ -84,10 +84,6 @@ body{
   color:white;
   opacity:0;
   cursor:pointer;
-  display:flex;
-  align-items:center;
-  gap:8px;
-  z-index:50;
   animation:fadePulse 2s infinite;
 }
 @keyframes fadePulse{
@@ -95,23 +91,12 @@ body{
   50%{opacity:1}
 }
 
-/* ========= LOVE TREE ========= */
+/* TREE */
 #loveTreePage{
   position:fixed;inset:0;
   background:radial-gradient(circle at top,#0b2d1c,#000);
   display:none;
   color:white;
-}
-
-#treeHint{
-  position:absolute;
-  top:24px;
-  right:26px;
-  font-size:1.1rem;
-  opacity:.85;
-  max-width:260px;
-  line-height:1.4;
-  text-align:right;
 }
 
 .treeWrap{
@@ -125,19 +110,6 @@ body{
   position:relative;
   width:300px;
   height:440px;
-}
-
-#treeHeart{
-  position:absolute;
-  top:-26px;
-  left:50%;
-  transform:translateX(-50%);
-  font-size:2.2rem;
-  animation:heartGlow 2.5s infinite;
-}
-@keyframes heartGlow{
-  0%,100%{filter:drop-shadow(0 0 6px #ff6fa8)}
-  50%{filter:drop-shadow(0 0 18px #ffb3d1)}
 }
 
 .tree-layer{
@@ -162,8 +134,7 @@ body{
   display:flex;align-items:center;justify-content:center;
   cursor:pointer;font-size:1.3rem;
 }
-.ornament.opened{box-shadow:0 0 25px white}
-.ornament.locked{opacity:.4;cursor:not-allowed}
+.ornament.locked{opacity:.4}
 .ornament.locked::after{content:"⏳";position:absolute}
 
 .o1{top:110px;left:130px;background:crimson}
@@ -174,31 +145,33 @@ body{
 .o6{top:290px;left:110px;background:orange}
 .o7{top:290px;left:160px;background:limegreen}
 
-/* ========= MODAL ========= */
-#modal{
-  position:fixed;inset:0;
-  background:rgba(0,0,0,.85);
+/* FULLSCREEN ORNAMENT SCREEN */
+#ornamentScreen{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at center,#1b1b1b,#000);
   display:none;
   align-items:center;
   justify-content:center;
-}
-#modalBox{
-  background:#111;
-  padding:30px;
-  border-radius:15px;
-  max-width:420px;
-  text-align:center;
-  font-size:1.2rem;
+  z-index:10000;
   color:white;
+  text-align:center;
+}
+#ornamentScreenText{
+  max-width:700px;
+  padding:40px;
+  font-size:1.6rem;
+  line-height:1.7;
 }
 
-/* ========= FINAL LETTER ========= */
+/* FINAL LETTER */
 #finalSurprise{
   position:fixed;inset:0;
   background:rgba(0,0,0,.95);
   display:none;
   align-items:center;
   justify-content:center;
+  z-index:10000;
 }
 #finalCard{
   background:rgba(20,20,20,.85);
@@ -216,35 +189,11 @@ body{
 
 <body>
 
-<div id="startOverlay"><div id="startText">❄️ Click to start your story ❄️</div></div>
+<div id="startOverlay"><div id="startText">❄️ Click to start ❄️</div></div>
 
 <audio id="storyMusic" src="music.mp3" loop></audio>
-<audio id="treeMusic" src="love-tree-music.mp3" loop></audio>
 
-<!-- STORY -->
 <div id="scene">
-  <div id="sweetBoy" style="top:65%;left:-20%">
-    <svg width="150" height="250">
-      <circle cx="75" cy="40" r="30" stroke="white" stroke-width="5" fill="none"/>
-      <line x1="75" y1="70" x2="75" y2="140" stroke="white" stroke-width="5"/>
-      <line x1="75" y1="95" x2="30" y2="120" stroke="white" stroke-width="5"/>
-      <line x1="75" y1="95" x2="120" y2="120" stroke="white" stroke-width="5"/>
-      <line x1="75" y1="140" x2="45" y2="210" stroke="white" stroke-width="5"/>
-      <line x1="75" y1="140" x2="105" y2="210" stroke="white" stroke-width="5"/>
-    </svg>
-  </div>
-
-  <div id="prettyGirl" style="top:65%;left:85%">
-    <svg width="150" height="250">
-      <circle cx="75" cy="40" r="30" stroke="white" stroke-width="5" fill="none"/>
-      <line x1="75" y1="70" x2="75" y2="140" stroke="white" stroke-width="5"/>
-      <line x1="75" y1="95" x2="40" y2="120" stroke="white" stroke-width="5"/>
-      <line x1="75" y1="95" x2="110" y2="120" stroke="white" stroke-width="5"/>
-      <line x1="75" y1="140" x2="50" y2="210" stroke="white" stroke-width="5"/>
-      <line x1="75" y1="140" x2="100" y2="210" stroke="white" stroke-width="5"/>
-    </svg>
-  </div>
-
   <div id="txt1" class="text-box">It was Christmas Eve… and Sweet Boy set out on his snowy journey…</div>
   <div id="txt2" class="text-box">With every step, his thoughts kept drifting back to her.</div>
   <div id="txt3" class="text-box">Even in the cold, the memories felt warm.</div>
@@ -253,24 +202,15 @@ body{
 
   <img id="photo1" class="photo" src="Leah1.jpeg">
   <img id="photo2" class="photo" src="Leah2.jpeg">
-  <img id="endingGif" class="photo" src="Leah.gif">
+  <img id="endingGif" src="Leah.gif">
   <div id="finalMessage">Merry Christmas my pretty girl ❤️</div>
 </div>
 
-<div id="nextCorner"><span>➜</span><span>Click next to continue</span></div>
+<div id="nextCorner">➜ Continue</div>
 
-<!-- LOVE TREE -->
 <div id="loveTreePage">
-  <div id="treeHint">
-    Follow what feels right.<br>
-    Not everything opens at once.
-    Take your time.<br>
-    Some moments wait for the right one.
-  </div>
-
   <div class="treeWrap">
     <div class="tree">
-      <div id="treeHeart">❤️</div>
       <div class="tree-layer layer1"></div>
       <div class="tree-layer layer2"></div>
       <div class="tree-layer layer3"></div>
@@ -287,15 +227,10 @@ body{
   </div>
 </div>
 
-<!-- MODAL -->
-<div id="modal">
-  <div id="modalBox">
-    <p id="modalText"></p><br>
-    <button onclick="closeModal()">Close</button>
-  </div>
+<div id="ornamentScreen">
+  <div id="ornamentScreenText"></div>
 </div>
 
-<!-- FINAL LETTER -->
 <div id="finalSurprise">
   <div id="finalCard">
     <p id="typedText"></p>
@@ -304,8 +239,8 @@ body{
 
 <script>
 const BEAT_DROP_TIME = 160;
+let opened = 0;
 
-/* 🔁 TEXT SWAPPED HERE ONLY */
 const messages = {
   1: "You're the sweetest girl, and you always make me feel safe.",
   2: "Your vulnerability in being comfortable with me is so attractive.",
@@ -330,37 +265,36 @@ Merry Christmas, baby.
 I’m really grateful it’s you.
 Always. ❤️`;
 
-/* EVERYTHING BELOW IS UNCHANGED */
-let opened=0;
+const ornamentScreen = document.getElementById("ornamentScreen");
+const ornamentScreenText = document.getElementById("ornamentScreenText");
 
 document.querySelectorAll(".ornament").forEach(o=>{
   o.onclick=()=>{
+    const id=o.dataset.id;
+
     if(o.classList.contains("locked")){
-      modalText.textContent="Just a little longer… ✨";
-      modal.style.display="flex";
+      ornamentScreenText.textContent="Just wait a lil longer… ✨";
+      ornamentScreen.style.display="flex";
+      ornamentScreen.onclick=()=>ornamentScreen.style.display="none";
       return;
     }
-    if(o.classList.contains("opened"))return;
 
-    o.classList.add("opened");
-    modalText.textContent=messages[o.dataset.id];
-    modal.style.display="flex";
+    ornamentScreenText.textContent=messages[id];
+    ornamentScreen.style.display="flex";
     opened++;
 
-    if(opened===6){
-      waitForBeat();
-    }
-    if(o.dataset.id==="7"){
-      finalReveal();
-    }
+    ornamentScreen.onclick=()=>{
+      ornamentScreen.style.display="none";
+      if(id==="7") finalReveal();
+    };
+
+    if(opened===6) waitForBeat();
   };
 });
 
-function closeModal(){ modal.style.display="none"; }
-
 function waitForBeat(){
   const check=setInterval(()=>{
-    if(treeMusic.currentTime>=BEAT_DROP_TIME){
+    if(storyMusic.currentTime>=BEAT_DROP_TIME){
       clearInterval(check);
       document.querySelector(".ornament.o7").classList.remove("locked");
     }
@@ -368,9 +302,20 @@ function waitForBeat(){
 }
 
 function finalReveal(){
+  loveTreePage.style.display="none";
   finalSurprise.style.display="flex";
   typedText.textContent=nameLine+"\n\n"+letterMessage;
 }
+
+startOverlay.onclick=()=>{
+  startOverlay.style.display="none";
+  storyMusic.play();
+};
+
+nextCorner.onclick=()=>{
+  scene.style.display="none";
+  loveTreePage.style.display="block";
+};
 </script>
 
 </body>
